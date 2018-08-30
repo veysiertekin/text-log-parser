@@ -75,7 +75,7 @@ public class SparkEtlService implements EtlService {
     }
 
     private void saveLogs(Dataset<Row> logs) {
-        LOGGER.info("All logs are being saved...");
+        LOGGER.info("All logs are being saved into DB...");
         logs.write().mode(SaveMode.Append)
                 .jdbc(dbConf.getJdbcUrl(), dbConf.getLogsTable(), dbConf.getConnectionProperties());
     }
@@ -103,7 +103,7 @@ public class SparkEtlService implements EtlService {
     }
 
     private void saveBlockedIps(Integer threshold, Dataset<Row> blockedIpDs) {
-        LOGGER.info("Blocked IPs are being saved...");
+        LOGGER.info("Blocked IPs are being saved into DB...");
         blockedIpDs
                 .withColumn("comment", lit("IP have been blocked due to threshold limit of " + threshold))
                 .write().mode(SaveMode.Append)
