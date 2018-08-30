@@ -19,7 +19,7 @@ class ParserTest {
             "      --startDate=<startDate>\n" +
             "         Start date in format of 'yyyy-MM-dd.HH:mm:ss'\n" +
             "      --threshold=<threshold>\n" +
-            "         Any integer value";
+            "         Threshold limit for blocking IPs; any integer value";
 
     private void assertThatUsagePrinted(OutputCapture outputCapture) {
         outputCapture.expect(containsString(USAGE_MESSAGE));

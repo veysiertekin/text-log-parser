@@ -22,6 +22,12 @@ You can build the project using:
 ➜  ./mvnw clean install
 ```
 
+For generating javadocs:
+
+```bash
+➜  ./mvnw javadoc:javadoc
+```
+
 ## Print Usage Directive
 
 If any required parameter doesn't specified, program will print usage directive.
@@ -36,7 +42,7 @@ Usage: <main class> --accesslog=<accessLog> --duration=<duration>
       --startDate=<startDate>
          Start date in format of 'yyyy-MM-dd.HH:mm:ss'
       --threshold=<threshold>
-         Any integer value
+         Threshold limit for blocking IPs; any integer value
 
 ```
 

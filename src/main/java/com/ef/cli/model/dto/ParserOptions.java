@@ -22,6 +22,6 @@ public class ParserOptions {
     @Option(names = "--duration", required = true, description = "'hourly' or 'daily'")
     private Duration duration;
 
-    @Option(names = "--threshold", required = true, description = "Any integer value")
+    @Option(names = "--threshold", required = true, description = "Threshold limit for blocking IPs; any integer value")
     private Integer threshold;
 }
