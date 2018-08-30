@@ -5,6 +5,11 @@ import org.apache.spark.SparkConf;
 
 import javax.inject.Inject;
 
+/**
+ * Apache Spark configuration properties
+ *
+ * @author veysiertekin
+ */
 public class SparkConfiguration extends SparkConf {
     private static final long serialVersionUID = -8541870740602884255L;
 

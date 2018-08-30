@@ -11,6 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 
+/**
+ * @see com.ef.cli.delegate.LogProcessorFacade
+ */
 public class LogProcessorFacadeImpl implements LogProcessorFacade {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogProcessorFacadeImpl.class);
 
@@ -23,6 +26,9 @@ public class LogProcessorFacadeImpl implements LogProcessorFacade {
         this.etlService = etlService;
     }
 
+    /**
+     * @see com.ef.cli.delegate.LogProcessorFacade#process(String[])
+     */
     @Override
     public void process(String[] args) {
         try {

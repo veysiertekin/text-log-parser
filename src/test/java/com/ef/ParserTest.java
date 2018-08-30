@@ -27,46 +27,75 @@ class ParserTest {
 
     @Test
     void should_fail_with_empty_parameters(OutputCapture outputCapture) {
-        Parser.main(new ParserArgsBuilder().build());
+        //Given
+        String[] build = new ParserArgsBuilder().build();
 
+        //When
+        Parser.main(build);
+
+        //Then
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required options [--accesslog=<accessLog>, --startDate=<startDate>, --duration=<duration>, --threshold=<threshold>]"));
     }
 
     @Test
     void should_fail_with_invalid_file(OutputCapture outputCapture) {
-        Parser.main(ParserArgsFactory.argsWithInvalidFileName());
+        //Given
+        String[] args = ParserArgsFactory.argsWithInvalidFileName();
+        //When
+        Parser.main(args);
+        //Then
         outputCapture.expect(containsString("Validation exception: File not exists!"));
     }
 
     @Test
     void should_fail_with_invalid_access_log(OutputCapture outputCapture) {
-        Parser.main(ParserArgsFactory.argsWithInvalidAccessLog());
+        //Given
+        String[] args = ParserArgsFactory.argsWithInvalidAccessLog();
 
+        //When
+        Parser.main(args);
+
+        //Then
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required option '--accesslog=<accessLog>'"));
     }
 
     @Test
     void should_fail_with_invalid_duration(OutputCapture outputCapture) {
-        Parser.main(ParserArgsFactory.argsWithInvalidDuration());
+        //Given
+        String[] args = ParserArgsFactory.argsWithInvalidDuration();
 
+        //When
+        Parser.main(args);
+
+        //Then
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required option '--duration=<duration>'"));
     }
 
     @Test
     void should_fail_with_invalid_threshold(OutputCapture outputCapture) {
-        Parser.main(ParserArgsFactory.argsWithInvalidThreshold());
+        //Given
+        String[] args = ParserArgsFactory.argsWithInvalidThreshold();
 
+        //When
+        Parser.main(args);
+
+        //Then
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required option '--threshold=<threshold>'"));
     }
 
     @Test
     void should_fail_with_invalid_startDate(OutputCapture outputCapture) {
-        Parser.main(ParserArgsFactory.argsWithInvalidStartDate());
+        //Given
+        String[] args = ParserArgsFactory.argsWithInvalidStartDate();
 
+        //When
+        Parser.main(args);
+
+        //Then
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required option '--startDate=<startDate>'"));
     }

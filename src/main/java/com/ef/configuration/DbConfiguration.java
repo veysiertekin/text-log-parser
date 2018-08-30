@@ -6,6 +6,11 @@ import lombok.Getter;
 import javax.inject.Inject;
 import java.util.Properties;
 
+/**
+ * Db configurations
+ *
+ * @author veysiertekin
+ */
 @Getter
 public class DbConfiguration {
     private static final String USERNAME_KEY = "user";

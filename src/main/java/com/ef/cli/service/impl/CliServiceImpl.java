@@ -17,6 +17,9 @@ public class CliServiceImpl implements CliService {
         this.dateConverter = dateConverter;
     }
 
+    /**
+     * @see com.ef.cli.service.CliService#parse(Object, String[])
+     */
     @Override
     public <T> T parse(T command, String[] args) throws UnableToParseParameters {
         try {
@@ -29,6 +32,9 @@ public class CliServiceImpl implements CliService {
         return command;
     }
 
+    /**
+     * @see com.ef.cli.service.CliService#usage(Object)
+     */
     @Override
     public String usage(Object command) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

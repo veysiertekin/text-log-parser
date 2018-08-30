@@ -22,6 +22,11 @@ import static com.ef.spark.converter.LogLineConverter.DATE_TIME_FORMATTER;
 import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.lit;
 
+/**
+ * Etl service based in Apache Spark
+ *
+ * @author veysiertekin
+ */
 public class SparkEtlService implements EtlService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SparkEtlService.class);
 
@@ -36,6 +41,9 @@ public class SparkEtlService implements EtlService {
         this.dbConf = dbConf;
     }
 
+    /**
+     * @see com.ef.cli.service.EtlService#parseLogFile(ParserOptions)
+     */
     @Override
     public void parseLogFile(ParserOptions options) {
         LOGGER.info("Initializing Apache Spark...");

@@ -8,9 +8,21 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Converts regular java string array to Spark object
+ *
+ * @author veysiertekin
+ */
 public class LogLineConverter {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
+    /**
+     * Converts string line input to Spark Distributed Object
+     * It's static because of Spark distribution restrictions.
+     *
+     * @param line each line of input log file
+     * @return Spark distributed object
+     */
     public static LogLine toLogLine(String[] line) {
         LogLine logLine = new LogLine();
         logLine.setDate(parseTimestamp(line[0]));
