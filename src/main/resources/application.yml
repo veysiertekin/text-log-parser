@@ -1,0 +1,13 @@
+mysql:
+  jdbcUrl:  "jdbc:mysql://localhost:3306/test?useSSL=false"
+  user: root
+  password: ""
+  logsTable: "log"
+  blockedIpsTable: "blocked_ip"
+
+spark:
+  master: "local[*]"
+  appName:  "spark-app"
+  ui:
+    host: 127.0.0.1
+    port: 4040

@@ -1,26 +1,30 @@
 package com.ef.cli.service.impl;
 
-import com.ef.cli.model.exception.UnableToParse;
+import com.ef.cli.model.exception.UnableToParseParameters;
 import com.ef.cli.service.CliService;
 import picocli.CommandLine;
 
 import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class CliServiceImpl implements CliService {
+    private final CommandLine.ITypeConverter<LocalDateTime> dateConverter;
+
     @Inject
-    private CommandLine.ITypeConverter<Date> dateConverter;
+    public CliServiceImpl(CommandLine.ITypeConverter<LocalDateTime> dateConverter) {
+        this.dateConverter = dateConverter;
+    }
 
     @Override
-    public <T> T parse(T command, String[] args) throws UnableToParse {
+    public <T> T parse(T command, String[] args) throws UnableToParseParameters {
         try {
             CommandLine commandLine = new CommandLine(command);
-            commandLine.registerConverter(Date.class, dateConverter);
+            commandLine.registerConverter(LocalDateTime.class, dateConverter);
             commandLine.parse(args);
         } catch (CommandLine.ParameterException pe) {
-            throw new UnableToParse(pe);
+            throw new UnableToParseParameters(pe);
         }
         return command;
     }

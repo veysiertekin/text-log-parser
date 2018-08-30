@@ -2,15 +2,15 @@ package com.ef.cli.model.converter;
 
 import picocli.CommandLine;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class DateConverter implements CommandLine.ITypeConverter<Date> {
-    private static final String DATE_FORMAT = "yyyy-MM-dd.HH:mm:ss";
+public class DateConverter implements CommandLine.ITypeConverter<LocalDateTime>, Serializable {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss");
 
     @Override
-    public Date convert(String value) throws Exception {
-        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-        return df.parse(value);
+    public LocalDateTime convert(String value) {
+        return LocalDateTime.parse(value, DATE_TIME_FORMATTER);
     }
 }

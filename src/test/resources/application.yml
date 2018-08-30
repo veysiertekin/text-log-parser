@@ -1,0 +1,13 @@
+mysql:
+  jdbcUrl:  "jdbc:h2:mem:sample;MODE=MYSQL;INIT=RUNSCRIPT FROM 'classpath:db-init.sql'"
+  user: sa
+  password: ""
+  logsTable: "log"
+  blockedIpsTable: "blocked_ip"
+
+spark:
+  master: "local[*]"
+  appName:  "spark-app"
+  ui:
+    host: 127.0.0.1
+    port: 4040

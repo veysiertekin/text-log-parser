@@ -8,9 +8,15 @@ import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 
 public class ParserArgsBuilder {
+    private Optional<String> accessLog = empty();
     private Optional<String> startDate = empty();
     private Optional<String> duration = empty();
     private Optional<String> threshold = empty();
+
+    public ParserArgsBuilder setAccessLog(String accessLog) {
+        this.accessLog = ofNullable(accessLog);
+        return this;
+    }
 
     public ParserArgsBuilder setStartDate(String startDate) {
         this.startDate = ofNullable(startDate);
@@ -29,10 +35,10 @@ public class ParserArgsBuilder {
 
     public String[] build() {
         final List<String> args = new ArrayList<>();
-        startDate.ifPresent(startDate -> args.add("-startDate=" + startDate));
-        duration.ifPresent(duration -> args.add("-duration=" + duration));
-        threshold.ifPresent(threshold -> args.add("-threshold=" + threshold));
-
+        accessLog.ifPresent(accessLog -> args.add("--accesslog=" + accessLog));
+        startDate.ifPresent(startDate -> args.add("--startDate=" + startDate));
+        duration.ifPresent(duration -> args.add("--duration=" + duration));
+        threshold.ifPresent(threshold -> args.add("--threshold=" + threshold));
         return args.toArray(new String[0]);
     }
 }

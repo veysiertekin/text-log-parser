@@ -1,9 +1,9 @@
 package com.ef.cli.service;
 
-import com.ef.cli.model.exception.UnableToParse;
+import com.ef.cli.model.exception.UnableToParseParameters;
 
 public interface CliService {
-    <T> T parse(T command, String[] args) throws UnableToParse;
+    <T> T parse(T command, String[] args) throws UnableToParseParameters;
 
     String usage(Object command);
 }
