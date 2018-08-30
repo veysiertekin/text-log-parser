@@ -42,14 +42,14 @@ public class LogProcessorFacadeImpl implements LogProcessorFacade {
         return parserOptions;
     }
 
-    private void printParserUsage() {
-        String usageText = cliService.usage(new ParserOptions());
-        LOGGER.error(usageText);
-    }
-
     private void validateFile(ParserOptions parserOptions) throws ParseValidationException {
         if (!parserOptions.getAccessLog().exists()) {
             throw new ParseValidationException("File not exists!");
         }
+    }
+
+    private void printParserUsage() {
+        String usageText = cliService.usage(new ParserOptions());
+        LOGGER.error(usageText);
     }
 }
