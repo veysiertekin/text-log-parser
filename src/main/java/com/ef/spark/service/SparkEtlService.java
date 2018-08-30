@@ -51,8 +51,7 @@ public class SparkEtlService implements EtlService {
             Dataset<Row> logsBetweenDates = filterInRange(logs, startDate, endDate);
             Dataset<Row> blockedIpDs = determineBlockedIps(logsBetweenDates, threshold);
 
-            saveBlockedIps(threshold, blockedIpDs);
-            printBlockedIps(blockedIpDs);
+            saveAndPrintBlockedIps(threshold, blockedIpDs);
         }
     }
 
@@ -86,6 +85,15 @@ public class SparkEtlService implements EtlService {
         return logs.groupBy(logs.col("ip")).count().filter("`count` >= " + threshold);
     }
 
+    private void saveAndPrintBlockedIps(Integer threshold, Dataset<Row> blockedIpDs) {
+        if (isDatasetEmpty(blockedIpDs)) {
+            LOGGER.info("There isn't any blocked IP.");
+        } else {
+            saveBlockedIps(threshold, blockedIpDs);
+            printBlockedIps(blockedIpDs);
+        }
+    }
+
     private void saveBlockedIps(Integer threshold, Dataset<Row> blockedIpDs) {
         LOGGER.info("Blocked IPs are being saved...");
         blockedIpDs
@@ -95,12 +103,8 @@ public class SparkEtlService implements EtlService {
     }
 
     private void printBlockedIps(Dataset<Row> blockedIpDs) {
-        if (isDatasetEmpty(blockedIpDs)) {
-            LOGGER.info("There isn't any blocked IP.");
-        } else {
-            LOGGER.info("These IPs had been blocked:");
-            blockedIpDs.foreach(x -> LOGGER.info(x.getString(x.fieldIndex("ip"))));
-        }
+        LOGGER.info("These IPs had been blocked:");
+        blockedIpDs.foreach(x -> LOGGER.info(x.getString(x.fieldIndex("ip"))));
     }
 
     private boolean isDatasetEmpty(Dataset<Row> ds) {

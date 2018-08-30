@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ApplicationProperties {
     private SparkProperties spark;
-    private DbProperties mysql;
+    private DbProperties db;
 
     @Data
     public static class SparkProperties {

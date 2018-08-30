@@ -1,4 +1,4 @@
-mysql:
+db:
   jdbcUrl:  "jdbc:h2:mem:sample;MODE=MYSQL;INIT=RUNSCRIPT FROM 'classpath:db-init.sql'"
   user: sa
   password: ""

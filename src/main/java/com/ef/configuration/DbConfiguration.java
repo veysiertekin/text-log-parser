@@ -19,7 +19,7 @@ public class DbConfiguration {
 
     @Inject
     public DbConfiguration(PropertiesConfiguration propertiesConfiguration) {
-        ApplicationProperties.DbProperties properties = propertiesConfiguration.properties().getMysql();
+        ApplicationProperties.DbProperties properties = propertiesConfiguration.properties().getDb();
 
         this.jdbcUrl = properties.getJdbcUrl();
         this.logsTable = properties.getLogsTable();
