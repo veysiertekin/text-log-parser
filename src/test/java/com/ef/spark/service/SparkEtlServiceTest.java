@@ -43,7 +43,7 @@ class SparkEtlServiceTest {
         etlService.parseLogFile(options);
 
         // Then
-        outputCapture.expect(containsString("These IPs had been blocked:"));
+        outputCapture.expect(containsString("Had been blocked IPs:"));
     }
 
     @Test

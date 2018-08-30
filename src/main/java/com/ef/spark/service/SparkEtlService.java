@@ -111,7 +111,7 @@ public class SparkEtlService implements EtlService {
     }
 
     private void printBlockedIps(Dataset<Row> blockedIpDs) {
-        LOGGER.info("These IPs had been blocked:");
+        LOGGER.info("Had been blocked IPs:");
         blockedIpDs.foreach(x -> LOGGER.info(x.getString(x.fieldIndex("ip"))));
     }
 
