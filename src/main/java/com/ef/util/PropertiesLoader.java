@@ -54,7 +54,7 @@ public class PropertiesLoader {
     }
 
     /**
-     * Load internal yml file in teh classpath
+     * Load internal yml file in the classpath
      *
      * @param yml Yaml file options
      * @return application properties
