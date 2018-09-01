@@ -13,5 +13,5 @@ public interface EtlService {
      *
      * @param options log file and time restrictions
      */
-    void parseLogFile(ParserOptions options);
+    void startEtl(ParserOptions options);
 }

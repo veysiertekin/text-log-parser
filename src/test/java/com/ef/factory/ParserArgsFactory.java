@@ -35,6 +35,12 @@ public class ParserArgsFactory {
                 .build();
     }
 
+    public static String[] argsWithWrongAccessLog() {
+        return validArgsBuilder()
+                .setAccessLog("pom.xml")
+                .build();
+    }
+
     private static ParserArgsBuilder validArgsBuilder() {
         return new ParserArgsBuilder()
                 .setAccessLog(ACCESS_LOG)

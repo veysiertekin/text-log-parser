@@ -3,11 +3,10 @@ package com.ef.cli.delegate.impl;
 import com.ef.cli.delegate.LogProcessorFacade;
 import com.ef.cli.model.dto.ParserOptions;
 import com.ef.cli.model.exception.ParseValidationException;
-import com.ef.cli.model.exception.UnableToParseParameters;
 import com.ef.cli.service.CliService;
 import com.ef.cli.service.EtlService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.ef.exception.CliExceptionHandlerProvider;
+import picocli.CommandLine;
 
 import javax.inject.Inject;
 
@@ -15,15 +14,17 @@ import javax.inject.Inject;
  * @see com.ef.cli.delegate.LogProcessorFacade
  */
 public class LogProcessorFacadeImpl implements LogProcessorFacade {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogProcessorFacadeImpl.class);
-
     private final CliService cliService;
     private final EtlService etlService;
+    private final CliExceptionHandlerProvider cliExceptionHandlerProvider;
 
     @Inject
-    public LogProcessorFacadeImpl(CliService cliService, EtlService etlService) {
+    public LogProcessorFacadeImpl(CliService cliService,
+                                  EtlService etlService,
+                                  CliExceptionHandlerProvider cliExceptionHandlerProvider) {
         this.cliService = cliService;
         this.etlService = etlService;
+        this.cliExceptionHandlerProvider = cliExceptionHandlerProvider;
     }
 
     /**
@@ -31,34 +32,20 @@ public class LogProcessorFacadeImpl implements LogProcessorFacade {
      */
     @Override
     public void process(String[] args) {
+        ParserOptions command = new ParserOptions();
+        CommandLine commandLine = new CommandLine(command);
         try {
-            ParserOptions options = parseOptions(args);
-            etlService.parseLogFile(options);
-        } catch (UnableToParseParameters up) {
-            LOGGER.debug("Missing parameters!", up);
-            printParserUsage();
-        } catch (ParseValidationException pve) {
-            LOGGER.error("Validation exception: {}", pve.getMessage());
-        } catch (Exception ue) {
-            LOGGER.debug("Unknown exception!", ue);
-            LOGGER.error("Unknown exception: {}", ue.getMessage());
+            cliService.parse(args, commandLine);
+            validateFile(command);
+            etlService.startEtl(command);
+        } catch (Exception exception) {
+            cliExceptionHandlerProvider.handle(commandLine, exception);
         }
-    }
-
-    private ParserOptions parseOptions(String[] args) throws UnableToParseParameters, ParseValidationException {
-        ParserOptions parserOptions = cliService.parse(new ParserOptions(), args);
-        validateFile(parserOptions);
-        return parserOptions;
     }
 
     private void validateFile(ParserOptions parserOptions) throws ParseValidationException {
         if (!parserOptions.getAccessLog().exists()) {
             throw new ParseValidationException("File not exists!");
         }
-    }
-
-    private void printParserUsage() {
-        String usageText = cliService.usage(new ParserOptions());
-        LOGGER.error(usageText);
     }
 }

@@ -5,9 +5,9 @@
         </encoder>
     </appender>
 
+    <logger name="org.apache.spark" level="OFF"/>
     <logger name="io.netty" level="error"/>
     <logger name="org.apache.hadoop" level="error"/>
-    <logger name="org.apache.spark" level="error"/>
     <logger name="org.spark_project.jetty" level="error"/>
 
     <root level="debug">

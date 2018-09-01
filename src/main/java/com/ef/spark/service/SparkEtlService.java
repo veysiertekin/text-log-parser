@@ -42,10 +42,10 @@ public class SparkEtlService implements EtlService {
     }
 
     /**
-     * @see com.ef.cli.service.EtlService#parseLogFile(ParserOptions)
+     * @see com.ef.cli.service.EtlService#startEtl(ParserOptions)
      */
     @Override
-    public void parseLogFile(ParserOptions options) {
+    public void startEtl(ParserOptions options) {
         LOGGER.info("Initializing Apache Spark...");
         try (SparkSession spark = SparkSession.builder().config(sparkConf).getOrCreate()) {
             File logFile = options.getAccessLog();

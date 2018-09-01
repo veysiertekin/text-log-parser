@@ -8,9 +8,15 @@ import com.ef.cli.service.EtlService;
 import com.ef.cli.service.impl.CliServiceImpl;
 import com.ef.configuration.DbConfiguration;
 import com.ef.configuration.SparkConfiguration;
+import com.ef.exception.CliExceptionHandlerProvider;
+import com.ef.exception.CliExceptionHandlingStrategy;
+import com.ef.exception.impl.DefaultExceptionHandlingStrategy;
+import com.ef.exception.impl.ParseValidationExceptionHandlingStrategy;
+import com.ef.exception.impl.UnParsableParameterExceptionHandlingStrategy;
 import com.ef.spark.service.SparkEtlService;
 import com.google.inject.AbstractModule;
 import com.google.inject.TypeLiteral;
+import com.google.inject.multibindings.Multibinder;
 import org.apache.spark.SparkConf;
 import picocli.CommandLine;
 
@@ -26,6 +32,13 @@ public class ParserModule extends AbstractModule {
         bind(EtlService.class).to(SparkEtlService.class);
         bind(CliService.class).to(CliServiceImpl.class);
         bind(LogProcessorFacade.class).to(LogProcessorFacadeImpl.class);
+
+        bind(CliExceptionHandlerProvider.class);
+
+        Multibinder<CliExceptionHandlingStrategy> mb = Multibinder.newSetBinder(binder(), CliExceptionHandlingStrategy.class);
+        mb.addBinding().to(ParseValidationExceptionHandlingStrategy.class);
+        mb.addBinding().to(UnParsableParameterExceptionHandlingStrategy.class);
+        mb.addBinding().to(DefaultExceptionHandlingStrategy.class);
     }
 
     private TypeLiteral<CommandLine.ITypeConverter<LocalDateTime>> dateTimeConverterType() {

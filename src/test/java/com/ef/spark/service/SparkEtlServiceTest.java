@@ -40,7 +40,7 @@ class SparkEtlServiceTest {
         options.setThreshold(10);
 
         // When
-        etlService.parseLogFile(options);
+        etlService.startEtl(options);
 
         // Then
         outputCapture.expect(containsString("Had been blocked IPs:"));
@@ -56,7 +56,7 @@ class SparkEtlServiceTest {
         options.setThreshold(60);
 
         // When
-        etlService.parseLogFile(options);
+        etlService.startEtl(options);
 
         // Then
         outputCapture.expect(containsString("There isn't any blocked IP."));

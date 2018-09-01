@@ -18,25 +18,23 @@ public class CliServiceImpl implements CliService {
     }
 
     /**
-     * @see com.ef.cli.service.CliService#parse(Object, String[])
+     * @see CliService#parse(String[], CommandLine)
      */
     @Override
-    public <T> T parse(T command, String[] args) throws UnableToParseParameters {
+    public void parse(String[] args, CommandLine commandLine) throws UnableToParseParameters {
         try {
-            CommandLine commandLine = new CommandLine(command);
             commandLine.registerConverter(LocalDateTime.class, dateConverter);
             commandLine.parse(args);
         } catch (CommandLine.ParameterException pe) {
             throw new UnableToParseParameters(pe);
         }
-        return command;
     }
 
     /**
-     * @see com.ef.cli.service.CliService#usage(Object)
+     * @see com.ef.cli.service.CliService#usage(CommandLine)
      */
     @Override
-    public String usage(Object command) {
+    public String usage(CommandLine command) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         CommandLine.usage(command, new PrintStream(outputStream), CommandLine.Help.Ansi.OFF);
         return outputStream.toString();

@@ -99,4 +99,16 @@ class ParserTest {
         assertThatUsagePrinted(outputCapture);
         outputCapture.expect(containsString("Missing required option '--startDate=<startDate>'"));
     }
+
+    @Test
+    void should_fail_with_wrong_file(OutputCapture outputCapture) {
+        //Given
+        String[] args = ParserArgsFactory.argsWithWrongAccessLog();
+
+        //When
+        Parser.main(args);
+
+        //Then
+        outputCapture.expect(containsString("Unknown exception!"));
+    }
 }
