@@ -39,6 +39,9 @@ public class LogProcessorFacadeImpl implements LogProcessorFacade {
             printParserUsage();
         } catch (ParseValidationException pve) {
             LOGGER.error("Validation exception: {}", pve.getMessage());
+        } catch (Exception ue) {
+            LOGGER.debug("Unknown exception!", ue);
+            LOGGER.error("Unknown exception: {}", ue.getMessage());
         }
     }
 
