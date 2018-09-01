@@ -5,6 +5,11 @@ import picocli.CommandLine;
 import javax.inject.Inject;
 import java.util.Set;
 
+/**
+ * Handles cli exceptions by their categories
+ *
+ * @author veysiertekin
+ */
 public class CliExceptionHandlerProvider {
     private final Set<CliExceptionHandlingStrategy> exceptionHandlingStrategies;
 
